@@ -1,6 +1,12 @@
 const express = require("express");
 const cors = require("cors");
-const lowDb = require("lowdb")
+
+import("lowdb").then((lowDb)=>{
+  return lowDb;
+}).catch((err)=>{
+  console.log(err)
+})
+
 const FileSync = require("lowdb/adapters/FileSync");
 const bodyParser = require("body-parser");
 const { nanoid} = require("nanoid");
