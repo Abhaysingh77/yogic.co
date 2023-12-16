@@ -1,4 +1,4 @@
 
-const config = { backendEndpoint: "http://127.0.0.1:8000" };
+const config = { backendEndpoint: "https://yogic-co.onrender.com" };
 
 export default config;
