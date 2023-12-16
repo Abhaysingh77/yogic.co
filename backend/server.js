@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const lowDb = require("lowdb");
+const low = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
 const bodyParser = require("body-parser");
 const { nanoid } = require("nanoid");
@@ -9,14 +9,14 @@ const utc = require("dayjs/plugin/utc");
 const timezone = require("dayjs/plugin/timezone");
 
 const app = express();
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.tz.setDefault("Asia/Kolkata");
 
 const adapter = new FileSync("db.json");
-const db = lowDb(adapter);
+const db = low(adapter);
 
 app.use(cors());
 app.use(express.json());
@@ -33,7 +33,7 @@ app.get("/categories/detail", (req, res) => {
   const response = data.find((ele) => ele.id == req.query.id);
   if (response) return res.json(response);
   else
-    return res.status(400).send({
+    return res.status(400).json({
       message: `Not found for ${req.query.id}!`,
     });
 });
@@ -44,7 +44,7 @@ app.get("/categories/poses", (req, res) => {
 
   if (response.length > 0) return res.json(response);
   else
-    return res.status(400).send({
+    return res.status(400).json({
       message: `Pose not found for ${req.query.name}!`,
     });
 });
@@ -54,7 +54,7 @@ app.get("/categories/pose/detail", (req, res) => {
   const response = data.find((ele) => ele.english_name === req.query.name);
   if (response) return res.json(response);
   else
-    return res.status(400).send({
+    return res.status(400).json({
       message: `Pose not found for ${req.query.name}`,
     });
 });
@@ -62,7 +62,7 @@ app.get("/categories/pose/detail", (req, res) => {
 app.post("/reservations/new", (req, res) => {
   const reservation = req.body;
   if (!(reservation.name && reservation.email && reservation.phone && reservation.designation)) {
-    return res.status(400).send({
+    return res.status(400).json({
       message: "Invalid data received",
     });
   } else {
@@ -91,10 +91,9 @@ app.post("/reservations/new", (req, res) => {
 
 app.get("/reservations", (req, res) => {
   const data = db.get("reservations").value();
-  if (data) return res.json(data);
-  else return res.json([]); // Send an empty array if there are no reservations
+  return res.json(data || []); // Send an empty array if there are no reservations
 });
 
-app.listen(process.env.PORT || PORT, () => {
-  console.log(`Backend is running on port ${process.env.PORT || PORT}`);
+app.listen(PORT, () => {
+  console.log(`Backend is running on port ${PORT}`);
 });
