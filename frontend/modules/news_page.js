@@ -23,6 +23,7 @@ async function addCarouselToDom(data, idx) {
             <img src="${ele.enclosure.link}" class="d-block w-100" alt="">
             <h2>${ele.title}</h2> 
             <p class="text-muted">${ele.description}</p>
+            <p class="fw-medium">${ele.pubDate}</p>
         </a>
       </div>`
         } else {
@@ -31,6 +32,8 @@ async function addCarouselToDom(data, idx) {
             <img src="${ele.enclosure.link}" class="d-block w-100 " alt="">
             <h2>${ele.title}</h2> 
             <p class="text-muted">${ele.description}</p>
+            <p class="fw-medium">${ele.pubDate}</p>
+            
         </a>
       </div>`
         }
