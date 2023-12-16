@@ -1,8 +1,8 @@
 const express = require("express");
 const cors = require("cors");
-
+const db='';
 import("lowdb").then((lowDb)=>{
-  return lowDb;
+  db = lowDb(new FileSync("db.json"));
 }).catch((err)=>{
   console.log(err)
 })
@@ -13,7 +13,6 @@ const { nanoid} = require("nanoid");
 var dayjs = require("dayjs");
 const utc=require('dayjs/plugin/utc')
 const timezone=require('dayjs/plugin/timezone')
-const db = lowDb(new FileSync("db.json"));
 const app = express();
 
 dayjs.extend(utc);
