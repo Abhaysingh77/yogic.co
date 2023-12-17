@@ -19,7 +19,7 @@ function captureFormSubmit() {
             },
             body:JSON.stringify(data),
         }).then(res=>{
-            alert("We'll get back to you asap!");
+            alert(`Success!.\n We'll get back to you asap!`);
             location.reload();
         }).catch(err=>{
             alert("Unable to submit the request")
