@@ -78,3 +78,25 @@ body{
     text-align: center;
     color: black;
 }
+
+/* loader */
+.loader{
+    height: 4rem;
+    width: 4rem;
+    border: 2px solid rgba(231, 189, 111, 0.984);
+    border-radius: 2rem;
+    border-top: white;
+    /* border-left: white; */
+    animation: loader 2s linear infinite;
+    margin: 2rem auto;
+    }
+
+@keyframes loader {
+    from {
+        transform: rotate(0deg)
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
+
